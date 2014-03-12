@@ -22,6 +22,10 @@ include_directories(${Qt5Core_INCLUDE_DIRS})
 
 set(CMAKE_CXX_FLAGS "${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}")
 
+include(ExternalProject)
+include(ExternGmock)
+include(GitInformation)
+
 add_subdirectory(src)
 add_subdirectory(src/plugins/TestPlugin)
 
