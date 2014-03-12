@@ -1,0 +1,32 @@
+
+add_executable(qtnavigator
+	main.cpp
+	MainWindow.hpp
+	MainWindow.cpp
+	MapWidget.hpp
+	MapWidget.cpp
+	plugins/Plugin.hpp
+	plugins/Manager.hpp
+	plugins/DefaultManager.hpp
+	plugins/DefaultManager.cpp
+	action/ExitApplication.hpp
+	action/ExitApplication.cpp
+	action/Fullscreen.hpp
+	action/Fullscreen.cpp
+	action/About.hpp
+	action/About.cpp
+	action/AboutQt.hpp
+	action/AboutQt.cpp
+	)
+
+target_link_libraries(qtnavigator
+	Qt5::Widgets
+	Qt5::OpenGL
+	)
+
+install(
+	TARGETS qtnavigator
+	DESTINATION bin
+	COMPONENT applications
+	)
+

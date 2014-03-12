@@ -1,0 +1,12 @@
+#!/bin/bash
+
+script_dir=$(dirname `readlink -f $0`)
+
+export CMAKE_PREFIX_PATH=$HOME/local/Qt5.2.1/5.2.1/gcc_64
+
+rm -fr build
+mkdir build
+cd build
+cmake -DCMAKE_TOOLCHAIN_FILE=${script_dir}/cmake/Gcc.cmake ..
+make
+
