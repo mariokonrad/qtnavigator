@@ -8,6 +8,7 @@
 namespace chart {
 namespace gshhs {
 
+/// Reads GSHHS (binary) files.
 class Reader
 {
 public:

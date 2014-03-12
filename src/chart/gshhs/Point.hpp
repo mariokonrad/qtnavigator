@@ -4,6 +4,8 @@
 namespace chart {
 namespace gshhs {
 
+/// This is a point read from GSHHS data, represented
+/// by latitude, longitude.
 class Point
 {
 public:

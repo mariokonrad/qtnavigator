@@ -7,12 +7,15 @@
 namespace chart {
 namespace gshhs {
 
+/// Reads a signed integer value from the stream and converts it
+/// from big endian to host endianess.
 void Reader::read_bigendian(std::istream& is, int32_t& data)
 {
 	is.read(reinterpret_cast<char*>(&data), sizeof(data));
 	data = endian::ntoh(data);
 }
 
+/// Reads the file, specified by the path.
 void Reader::read(std::string path)
 {
 	std::fstream ifs(path.c_str(), std::ios::in | std::ios::binary);
@@ -23,6 +26,7 @@ void Reader::read(std::string path)
 	}
 }
 
+/// Reads a polygon from the spefied stream.
 void Reader::read_polygon(std::istream& is)
 {
 	int32_t id = 0; // unique polygon id number, starting at 0
