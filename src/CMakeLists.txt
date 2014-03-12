@@ -17,6 +17,10 @@ add_executable(qtnavigator
 	action/About.cpp
 	action/AboutQt.hpp
 	action/AboutQt.cpp
+	chart/gshhs/Point.hpp
+	chart/gshhs/Point.cpp
+	chart/gshhs/Reader.hpp
+	chart/gshhs/Reader.cpp
 	)
 
 target_link_libraries(qtnavigator
