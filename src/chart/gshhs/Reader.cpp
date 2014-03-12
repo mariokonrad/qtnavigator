@@ -20,7 +20,6 @@ void Reader::read(std::string path)
 {
 	std::fstream ifs(path.c_str(), std::ios::in | std::ios::binary);
 
-	std::cout << "path      = " << path << std::endl;
 	while (!ifs.eof()) {
 		read_polygon(ifs);
 	}

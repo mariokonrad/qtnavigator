@@ -29,6 +29,20 @@ include(GitInformation)
 add_subdirectory(src)
 add_subdirectory(src/plugins/TestPlugin)
 
+# --- tests
+
+add_custom_target(unittest)
+macro(run_unittest unittest_target)
+	add_custom_target(${unittest_target}_runtest
+		COMMAND ${unittest_target}
+		DEPENDS ${unittest_target}
+		WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
+		)
+	add_dependencies(unittest ${unittest_target}_runtest)
+endmacro()
+
+add_subdirectory(src_test)
+
 # --- packaging
 
 set(VERSION_MAJOR "0")
