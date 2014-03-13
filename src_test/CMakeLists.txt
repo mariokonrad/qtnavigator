@@ -24,6 +24,7 @@ add_executable(testrunner
 	${TEST_SRC}
 	${CMAKE_SOURCE_DIR}/src/chart/gshhs/Point.cpp
 	${CMAKE_SOURCE_DIR}/src/chart/gshhs/Polygon.cpp
+	${CMAKE_SOURCE_DIR}/src/chart/gshhs/Chart.cpp
 	${CMAKE_SOURCE_DIR}/src/chart/gshhs/Reader.cpp
 	)
 

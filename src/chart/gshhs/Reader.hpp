@@ -8,15 +8,18 @@
 namespace chart {
 namespace gshhs {
 
+class Polygon;
+class Chart;
+
 /// Reads GSHHS (binary) files.
 class Reader
 {
 public:
-	void read(std::string path) const;
+	void read(std::string path, Chart& chart) const;
 
 private:
 	void read_bigendian(std::istream& is, int32_t& data) const;
-	void read_polygon(std::istream& is) const;
+	void read_polygon(std::istream& is, Polygon& poly) const;
 };
 
 }}

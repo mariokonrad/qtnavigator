@@ -1,5 +1,6 @@
 #include "Reader.hpp"
 #include <chart/gshhs/Polygon.hpp>
+#include <chart/gshhs/Chart.hpp>
 #include <utils/endian.hpp>
 #include <fstream>
 
@@ -15,7 +16,7 @@ void Reader::read_bigendian(std::istream& is, int32_t& data) const
 }
 
 /// Reads the file, specified by the path.
-void Reader::read(std::string path) const
+void Reader::read(std::string path, Chart& chart) const
 {
 	std::ifstream ifs(path.c_str(), std::ios::in | std::ios::binary);
 
@@ -23,15 +24,15 @@ void Reader::read(std::string path) const
 		return;
 	}
 	while (!ifs.eof()) {
-		read_polygon(ifs);
+		Polygon poly;
+		read_polygon(ifs, poly);
+		chart.polygons.push_back(poly);
 	}
 }
 
 /// Reads a polygon from the spefied stream.
-void Reader::read_polygon(std::istream& is) const
+void Reader::read_polygon(std::istream& is, Polygon& poly) const
 {
-	Polygon poly;
-
 	read_bigendian(is, poly.id);
 	read_bigendian(is, poly.num);
 	read_bigendian(is, poly.flag);
