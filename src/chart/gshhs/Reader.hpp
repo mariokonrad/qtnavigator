@@ -12,11 +12,11 @@ namespace gshhs {
 class Reader
 {
 public:
-	void read(std::string path);
+	void read(std::string path) const;
 
 private:
-	void read_bigendian(std::istream& is, int32_t& data);
-	void read_polygon(std::istream& is);
+	void read_bigendian(std::istream& is, int32_t& data) const;
+	void read_polygon(std::istream& is) const;
 };
 
 }}

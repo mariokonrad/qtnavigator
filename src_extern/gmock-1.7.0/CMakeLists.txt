@@ -40,3 +40,8 @@ install(
 	DESTINATION include/gtest
 	)
 
+install(
+	FILES global.hpp
+	DESTINATION include/gtest
+	)
+

@@ -22,8 +22,9 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 add_executable(testrunner
 	${TEST_SRC}
-	${CMAKE_SOURCE_DIR}/src/chart/gshhs/Reader.cpp
 	${CMAKE_SOURCE_DIR}/src/chart/gshhs/Point.cpp
+	${CMAKE_SOURCE_DIR}/src/chart/gshhs/Polygon.cpp
+	${CMAKE_SOURCE_DIR}/src/chart/gshhs/Reader.cpp
 	)
 
 target_link_libraries(testrunner

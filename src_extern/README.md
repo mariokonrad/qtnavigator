@@ -20,8 +20,9 @@ Download: https://code.google.com/p/googlemock/downloads/detail?name=gmock-1.7.0
 
 Notess:
 - Only the fused source
+- Added a CMakeLists.txt file
 - Added custom\_main.cpp
   - Supports output in CppUnit (XML) format in addition to the standard
     behaviour (JUnit format).
-- Added a CMakeLists.txt file
+- Added global.hpp to support configurable tests, e.g. data\_root
 

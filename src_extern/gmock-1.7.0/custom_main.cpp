@@ -138,11 +138,13 @@ public:
 	{
 		OPT_HELP = 0,
 		OPT_CPPUNIT_OUTPUT = 1,
+		OPT_DATA_ROOT = 2,
 	};
 
 	Options()
 		: cppunit_output(false)
 		, cppunit_output_filename("")
+		, data_root(".")
 	{}
 
 	void print_usage()
@@ -155,6 +157,10 @@ public:
 		cout << "                                  into the specified file. If no" << endl;
 		cout << "                                  filename is specified, the output" << endl;
 		cout << "                                  is writtend to stderr." << endl;
+		cout << endl;
+		cout << "  --data-root path              : sets the global data root path." << endl;
+		cout << "                                  this is useful if the paths differ" << endl;
+		cout << "                                  during unit tests." << endl;
 		cout << endl;
 	}
 
@@ -170,6 +176,7 @@ public:
 		{
 			{ "help",           no_argument,       0, 'h' },
 			{ "cppunit-output", optional_argument, 0, 0   },
+			{ "data-root",      required_argument, 0, 0   },
 			{ 0,                no_argument,       0, 0   }
 		};
 
@@ -179,6 +186,7 @@ public:
 public:
 	bool cppunit_output; ///< Write output in cppunit format (XML)
 	std::string cppunit_output_filename; ///< Filename to write tht cppunit output to
+	std::string data_root; ///< Path to the data root
 };
 
 /// Parses the command line options left overs.
@@ -219,6 +227,10 @@ Options parse(int& argc, char** argv)
 							options.cppunit_output_filename = optarg;
 						}
 						break;
+
+					case Options::OPT_DATA_ROOT:
+						options.data_root = optarg;
+						break;
 				}
 				break;
 
@@ -234,13 +246,27 @@ Options parse(int& argc, char** argv)
 
 #endif
 
+#if defined(__linux__)
+static params::Options options;
+
+namespace testing {
+namespace global {
+
+std::string data_root()
+{
+	return options.data_root;
+}
+
+}}
+#endif
+
 GTEST_API_ int main(int argc, char** argv)
 {
 	testing::InitGoogleMock(&argc, argv);
 
 #if defined(__linux__)
 	// argc/argv used by GoogleTest/-Mock were consumed
-	params::Options options = params::parse(argc, argv);
+	options = params::parse(argc, argv);
 
 	CppUnitPrinter* printer = 0;
 

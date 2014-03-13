@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 2.8.11)
 
+# TODO: support for Windows / Visual Studio 2012?
+
 project(qtnavigator)
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
@@ -36,7 +38,7 @@ add_subdirectory(src/plugins/TestPlugin)
 add_custom_target(unittest)
 macro(run_unittest unittest_target)
 	add_custom_target(${unittest_target}_runtest
-		COMMAND ${unittest_target}
+		COMMAND bin/${unittest_target} --data-root ${CMAKE_SOURCE_DIR}/data
 		DEPENDS ${unittest_target}
 		WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
 		)
