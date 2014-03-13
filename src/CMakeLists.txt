@@ -34,7 +34,9 @@ target_link_libraries(qtnavigator
 
 install(
 	TARGETS qtnavigator
-	DESTINATION bin
+	RUNTIME DESTINATION bin
 	COMPONENT applications
 	)
+
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH true)
 

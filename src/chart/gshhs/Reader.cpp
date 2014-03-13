@@ -55,7 +55,7 @@ void Reader::read_polygon(std::istream& is, Polygon& poly) const
 	read_bigendian(is, poly.ancestor);
 
 	poly.points.reserve(poly.num);
-	for (int32_t i = 0; i < poly.num; ++i) {
+	for (uint32_t i = 0; i < poly.num; ++i) {
 		int32_t lon_ud = 0;
 		int32_t lat_ud = 0;
 

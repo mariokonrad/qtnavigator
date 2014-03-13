@@ -4,6 +4,8 @@ cmake_minimum_required(VERSION 2.8.11)
 
 project(qtnavigator)
 
+set(PACKAGE_NAME "qtnavigator")
+
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
 # Find includes in corresponding build directories
@@ -47,6 +49,16 @@ endmacro()
 
 add_subdirectory(src_test)
 
+# --- data
+
+file(GLOB GSHHS_RESOURCES "${CMAKE_CURRENT_SOURCE_DIR}/data/gshhs/*")
+install(FILES ${GSHHS_RESOURCES}
+	DESTINATION
+		share/${PACKAGE_NAME}/gshhs
+	PERMISSIONS
+		OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ
+	)
+
 # --- packaging
 
 set(VERSION_MAJOR "0")
@@ -57,13 +69,13 @@ set(CPACK_PACKAGE_VERSION_MAJOR ${VERSION_MAJOR})
 set(CPACK_PACKAGE_VERSION_MINOR ${VERSION_MINOR})
 set(CPACK_PACKAGE_VERSION_PATCH ${VERSION_PATCH})
 set(CPACK_PACKAGE_VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
-set(CPACK_PACKAGE_NAME "qtnavigator")
+set(CPACK_PACKAGE_NAME "${PACKAGE_NAME}")
 set(CPACK_PACKAGE_VENDOR "Mario Konrad")
 set(CPACK_PACKAGE_CONTACT "Mario Konrad <mario.konrad@gmx.net>")
-set(CPACK_PACAKGE_DESCRIPTION "qtnavigator")
+set(CPACK_PACAKGE_DESCRIPTION "${PACKAGE_NAME}")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Nautical navigation software")
 set(CPACK_MONOLITHIC_INSTALL 1)
-set(CPACK_PACKAGE_EXECUTABLES "qtnavigator" "qtnavigator")
+set(CPACK_PACKAGE_EXECUTABLES "${PACKAGE_NAME}" "${PACKAGE_NAME}")
 set(CPACK_STRIP_FILES true)
 
 # --- tar package

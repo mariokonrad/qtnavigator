@@ -1,6 +1,6 @@
 
-set(C_COMMON   "-fPIC -std=c11")
-set(CXX_COMMON "-fPIC -std=c++11")
+set(C_COMMON   "-fPIC -std=c11 -rdynamic")
+set(CXX_COMMON "-fPIC -std=c++11 -rdynamic")
 
 set(C_WARN_FLAGS   "-Wall -Wextra")
 set(CXX_WARN_FLAGS "-Wall -Wextra")
