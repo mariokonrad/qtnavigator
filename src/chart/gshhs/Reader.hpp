@@ -19,6 +19,7 @@ public:
 
 private:
 	void read_bigendian(std::istream& is, int32_t& data) const;
+	void read_bigendian(std::istream& is, uint32_t& data) const;
 	void read_polygon(std::istream& is, Polygon& poly) const;
 };
 

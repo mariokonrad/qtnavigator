@@ -42,10 +42,26 @@ uint8_t Polygon::source() const
 	return (flag >> 24) & 1;
 }
 
-uint8_t Polygon::river () const
+uint8_t Polygon::river() const
 {
 	// 0 = not set, 1 = river-lake and level = 2
 	return (flag >> 25) & 1;
+}
+
+uint8_t Polygon::area_mag() const
+{
+	// area magnitude scale p (as in 10^p) = flag >> 26.  We divide area by 10^p.
+	return (flag >> 26) & 255;
+}
+
+std::size_t Polygon::size() const
+{
+	return points.size();
+}
+
+const std::vector<Point>& Polygon::get_points() const // TEMP
+{
+	return points;
 }
 
 }}

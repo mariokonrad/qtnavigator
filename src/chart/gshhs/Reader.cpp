@@ -3,6 +3,7 @@
 #include <chart/gshhs/Chart.hpp>
 #include <utils/endian.hpp>
 #include <fstream>
+#include <QDebug>
 
 namespace chart {
 namespace gshhs {
@@ -10,6 +11,14 @@ namespace gshhs {
 /// Reads a signed integer value from the stream and converts it
 /// from big endian to host endianess.
 void Reader::read_bigendian(std::istream& is, int32_t& data) const
+{
+	is.read(reinterpret_cast<char*>(&data), sizeof(data));
+	data = endian::ntoh(data);
+}
+
+/// Reads a signed integer value from the stream and converts it
+/// from big endian to host endianess.
+void Reader::read_bigendian(std::istream& is, uint32_t& data) const
 {
 	is.read(reinterpret_cast<char*>(&data), sizeof(data));
 	data = endian::ntoh(data);
@@ -47,13 +56,21 @@ void Reader::read_polygon(std::istream& is, Polygon& poly) const
 
 	poly.points.reserve(poly.num);
 	for (int32_t i = 0; i < poly.num; ++i) {
-		int32_t x = 0;
-		int32_t y = 0;
+		int32_t lon_ud = 0;
+		int32_t lat_ud = 0;
 
-		read_bigendian(is, x);
-		read_bigendian(is, y);
+		read_bigendian(is, lon_ud);
+		read_bigendian(is, lat_ud);
 
-		poly.points.emplace_back(x * 1.0e-6, y * 1.0e-6);
+		double lat = 1.0e-6 * lat_ud;
+		double lon = 1.0e-6 * lon_ud;
+
+		// this conversion was taken from original source gshhg.c (gmt version 5.1.1)
+		if ((poly.greenwich() && (lon > 270.0)) || (poly.west_ud > 180000000)) {
+			lon -= 360.0;
+		}
+
+		poly.points.emplace_back(lat, lon);
 	}
 }
 

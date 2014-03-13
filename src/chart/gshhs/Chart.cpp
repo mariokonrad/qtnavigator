@@ -16,4 +16,9 @@ std::size_t Chart::num_polygons() const
 	return polygons.size();
 }
 
+const std::vector<Polygon>& Chart::get_polygons() const // TEMP
+{
+	return polygons;
+}
+
 }}

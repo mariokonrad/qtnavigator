@@ -1,6 +1,7 @@
 #ifndef __MAPWIDGET__HPP__
 #define __MAPWIDGET__HPP__
 
+#include <chart/gshhs/Chart.hpp> // TEMP
 #include <QWidget>
 
 class MapWidget : public QWidget
@@ -16,6 +17,9 @@ protected:
 	virtual void mousePressEvent(QMouseEvent* event);
 	virtual void mouseReleaseEvent(QMouseEvent* event);
 	virtual void wheelEvent(QWheelEvent* event);
+
+private:
+	chart::gshhs::Chart chart; // TEMP
 };
 
 #endif

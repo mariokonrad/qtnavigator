@@ -21,6 +21,8 @@ add_executable(qtnavigator
 	chart/gshhs/Point.cpp
 	chart/gshhs/Polygon.hpp
 	chart/gshhs/Polygon.cpp
+	chart/gshhs/Chart.hpp
+	chart/gshhs/Chart.cpp
 	chart/gshhs/Reader.hpp
 	chart/gshhs/Reader.cpp
 	)
