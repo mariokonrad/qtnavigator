@@ -29,7 +29,6 @@ private:
 	QAction* action_toggle_fullscreen;
 	QAction* action_about;
 	QAction* action_about_qt;
-	bool fullscreen;
 	MapWidget* map_widget;
 };
 

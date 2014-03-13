@@ -16,7 +16,6 @@ MainWindow::MainWindow()
 	, action_about(nullptr)
 	, action_about_qt(nullptr)
 	, map_widget(nullptr)
-	, fullscreen(false)
 {
 	setWindowTitle(tr("qtnavigator"));
 

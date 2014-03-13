@@ -1,0 +1,341 @@
+#!/bin/bash -eu
+
+script_dir=$(dirname `readlink -f $0`)
+script_name=$(basename `readlink -f $0`)
+
+function usage()
+{
+	echo ""
+	echo "usage: ${script_name} [options] [commands]"
+	echo ""
+	echo "Commands:"
+	echo "    help         : show this help"
+	echo "    info         : show information"
+	echo "    clean"
+	echo "    prepare"
+	echo "    build"
+	echo "    test"
+	echo "    install"
+	echo "    package"
+	echo "    index"
+	echo ""
+	echo "Options:"
+	echo "    --help       : show this help"
+	echo "    -h           : show this help"
+	echo "    -j x         : use x number of cores"
+	echo "    --release    : build type: release"
+	echo "    --tool x     : use toolchain x"
+	echo "    -i           : incremental build"
+	echo ""
+}
+
+function create_build_dir()
+{
+	if [ ${opt_incremental} -eq 0 ] ; then
+		# cleanup previous build
+		if [ -d "${BUILD_DIR}" ] ; then
+			rm -fr ${BUILD_DIR}/*
+		else
+			mkdir -p ${BUILD_DIR}
+		fi
+	fi
+}
+
+function check_build_dir()
+{
+	if [ ! -d "${BUILD_DIR}" ] ; then
+		echo "ERROR: build directory does not exist. abort." >&2
+		exit 1
+	fi
+}
+
+function create_install_dir()
+{
+	if [ ${opt_incremental} -eq 0 ] ; then
+		# cleanup previous build
+		if [ -d "${INSTALL_DIR}" ] ; then
+			rm -fr ${INSTALL_DIR}/*
+		else
+			mkdir -p ${INSTALL_DIR}
+		fi
+	fi
+}
+
+function check_install_dir()
+{
+	if [ ! -d "${INSTALL_DIR}" ] ; then
+		echo "ERROR: install directory does not exist. abort." >&2
+		exit 1
+	fi
+}
+
+function create_deploy_dir()
+{
+	if [ ${opt_incremental} -eq 0 ] ; then
+		# cleanup previous build
+		if [ -d "${DEPLOY_DIR}" ] ; then
+			rm -fr ${DEPLOY_DIR}/*
+		else
+			mkdir -p ${DEPLOY_DIR}
+		fi
+	fi
+}
+
+function check_deploy_dir()
+{
+	if [ ! -d "${DEPLOY_DIR}" ] ; then
+		echo "ERROR: deploy directory does not exist. abort." >&2
+		exit 1
+	fi
+}
+
+function clean_index()
+{
+	rm -f tags cscope.files cscope.out
+}
+
+function exec_index()
+{
+	clean_index
+	for dn in src ; do
+		find ${dn} -type f -regextype posix-egrep -regex ".*\.(cpp|cc|cxx|c|hpp|hh|hxx|h)" >> cscope.files
+	done
+	ctags -L cscope.files
+	cscope -b
+}
+
+function exec_info()
+{
+	echo ""
+	echo "INFO:"
+	echo "  SRC_DIR           = ${SRC_DIR}"
+	echo "  BUILD_DIR         = ${BUILD_DIR}"
+	echo "  INSTALL_DIR       = ${INSTALL_DIR}"
+	echo "  DEPLOY_DIR        = ${DEPLOY_DIR}"
+	echo ""
+	echo "  CURRENT_DIR       = ${CURRENT_DIR}"
+	echo "  CMAKE_PREFIX_PATH = ${CMAKE_PREFIX_PATH}"
+	echo ""
+	echo "  TOOLCHAIN         = ${TOOLCHAIN_FILE}"
+	echo "  BUILD_TYPE        = ${BUILD_TYPE}"
+	echo "  CORES             = ${CORES}"
+	echo ""
+	echo "  cppcheck          = `which cppcheck`"
+	echo ""
+}
+
+function exec_cppcheck()
+{
+	if [ ! -x `which cppcheck` ] ; then
+		echo "error: cppcheck not found. abort."
+		exit 1
+	fi
+
+	cppcheck \
+		-Isrc \
+		--enable=all \
+		--std=c++11 --std=posix \
+		--platform=unix64 \
+		--language=c++ \
+		--force \
+		-D__GNUC__ \
+		-U__MSVC__ \
+		-U__MSVC__66 \
+		-U__MSVC__LEAK \
+		-U_DEBUG \
+		$(find src -name "*.cpp" -o -name "*.hpp" -type f)
+}
+
+function exec_clean()
+{
+	if [ -d ${INSTALL_DIR} ] ; then
+		rm -fr ${INSTALL_DIR}
+	fi
+	if [ -d ${BUILD_DIR} ] ; then
+		rm -fr ${BUILD_DIR}
+	fi
+	if [ -d ${DEPLOY_DIR} ] ; then
+		rm -fr ${DEPLOY_DIR}
+	fi
+	clean_index
+}
+
+function exec_build()
+{
+	check_build_dir
+	cd ${BUILD_DIR}
+
+	make -j ${CORES}
+
+	cd ${CURRENT_DIR}
+}
+
+function exec_unittest()
+{
+	check_build_dir
+	cd ${BUILD_DIR}
+
+	make unittest
+
+	cd ${CURRENT_DIR}
+}
+
+function exec_prepare()
+{
+	create_build_dir
+	create_install_dir
+	create_deploy_dir
+	check_build_dir
+	cd ${BUILD_DIR}
+
+	cmake \
+		-DCMAKE_TOOLCHAIN_FILE=${script_dir}/cmake/${TOOLCHAIN_FILE} \
+		-DCMAKE_INSTALL_PREFIX=${INSTALL_DIR} \
+		-DCMAKE_BUILD_TYPE=${BUILD_TYPE} \
+		-DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+		${SRC_DIR}
+
+	cd ${CURRENT_DIR}
+}
+
+function exec_install()
+{
+	check_build_dir
+	check_install_dir
+	cd ${BUILD_DIR}
+
+	make install
+
+	cd ${CURRENT_DIR}
+}
+
+function exec_packaging()
+{
+	check_build_dir
+	check_deploy_dir
+	cd ${BUILD_DIR}
+
+	cpack -G TGZ -C ${BUILD_TYPE} -B ${DEPLOY_DIR}
+	cpack -G ZIP -C ${BUILD_TYPE} -B ${DEPLOY_DIR}
+	cpack -G DEB -C ${BUILD_TYPE} -B ${DEPLOY_DIR}
+	if [ -x rpmbuild ] ; then
+		cpack -G RPM -C ${BUILD_TYPE} -B ${DEPLOY_DIR}
+	fi
+
+	cd ${CURRENT_DIR}
+}
+
+# gather information about the platform
+cores=`grep -i 'processor' /proc/cpuinfo | wc -l`
+
+args=$(getopt \
+	--options "hj:i" \
+	--longopt "help" \
+	--longopt "release" \
+	--longopt "tool:" \
+	-- "$@")
+if [ $? != 0 ] ; then
+	echo "Parameter error. abort." >&2
+	exit 1
+fi
+eval set -- "${args}"
+
+opt_incremental=0
+opt_actions=()
+
+function add_action()
+{
+	opt_actions[${#opt_actions[*]}]=$1
+}
+
+while [ $# -ne 0 ] ; do
+	case "$1" in
+		--help|-h)
+			usage
+			exit 1
+			;;
+		--release)
+			BUILD_TYPE=Release
+			;;
+		-j)
+			cores=$2
+			shift
+			;;
+		-i)
+			opt_incremental=1
+			;;
+		--tool)
+			TOOLCHAIN_FILE="Toolchain_$2.cmake"
+			shift
+			;;
+		*)
+			if [ $# -gt 1 ] ; then
+				add_action "$2"
+			fi
+			;;
+	esac
+	shift
+done
+
+# ensure defaults
+if [ ${#opt_actions[*]} -eq 0 ] ; then
+	add_action "prepare"
+	add_action "build"
+fi
+
+# ensure lower bound of cores
+if [ ${cores} -lt 1 ] ; then
+	cores=1
+fi
+
+# set necessary variables, using default values
+SRC_DIR=${SRC_DIR:-${script_dir}}
+BUILD_DIR=${BUILD_DIR:-`pwd`/build}
+INSTALL_DIR=${INSTALL_DIR:-`pwd`/install}
+DEPLOY_DIR=${DEPLOY_DIR:-`pwd`/deploy}
+BUILD_TYPE=${BUILD_TYPE:-Debug}
+TOOLCHAIN_FILE=${TOOLCHAIN_FILE:-Toolchain_gcc.cmake}
+CORES=${CORES:-${cores}}
+CURRENT_DIR=`pwd`
+export CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH:-$HOME/local/Qt5.2.1/5.2.1/gcc_64}
+
+# execute actions
+for action_index in ${!opt_actions[*]} ; do
+	action="${opt_actions[${action_index}]}"
+	case ${action} in
+		help)
+			usage
+			exit 0
+			;;
+		info)
+			exec_info
+			exit 0
+			;;
+		clean)
+			exec_clean
+			;;
+		prepare)
+			exec_prepare
+			;;
+		build)
+			exec_build
+			;;
+		test)
+			exec_unittest
+			;;
+		install)
+			exec_install
+			;;
+		package)
+			exec_packaging
+			;;
+		index)
+			exec_index
+			;;
+		*)
+			echo "ERROR: unknown command: ${action}"
+			exit 1
+			;;
+	esac
+done
+

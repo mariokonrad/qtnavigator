@@ -17,10 +17,12 @@ find_package(Qt5Core REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5OpenGL)
 
+# TODO: installation of Qt libs
+
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 include_directories(${Qt5Core_INCLUDE_DIRS})
 
-set(CMAKE_CXX_FLAGS "${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}")
+include(CompilerOptions-gcc)
 
 include(ExternalProject)
 include(ExternGmock)

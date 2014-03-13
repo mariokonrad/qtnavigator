@@ -30,22 +30,22 @@ void MapWidget::paintEvent(QPaintEvent* event)
 	painter.end();
 }
 
-void MapWidget::mouseMoveEvent(QMouseEvent* event)
+void MapWidget::mouseMoveEvent(QMouseEvent*)
 {
 	qDebug() << __PRETTY_FUNCTION__;
 }
 
-void MapWidget::mousePressEvent(QMouseEvent* event)
+void MapWidget::mousePressEvent(QMouseEvent*)
 {
 	qDebug() << __PRETTY_FUNCTION__;
 }
 
-void MapWidget::mouseReleaseEvent(QMouseEvent* event)
+void MapWidget::mouseReleaseEvent(QMouseEvent*)
 {
 	qDebug() << __PRETTY_FUNCTION__;
 }
 
-void MapWidget::wheelEvent(QWheelEvent* event)
+void MapWidget::wheelEvent(QWheelEvent*)
 {
 	qDebug() << __PRETTY_FUNCTION__;
 }
