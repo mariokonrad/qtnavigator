@@ -12,6 +12,7 @@ class MainWindow : public QMainWindow
 
 public:
 	MainWindow();
+	void set_data_root(QString);
 
 private slots:
 	void on_about();
