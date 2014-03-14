@@ -1,11 +1,11 @@
 #include "DefaultManager.hpp"
-#include <plugins/Plugin.hpp>
+#include <plugin_core/Plugin.hpp>
 #include <QString>
 #include <QPluginLoader>
 #include <QDir>
 #include <QDebug>
 
-namespace plugins {
+namespace plugin {
 
 DefaultManager::DefaultManager()
 {

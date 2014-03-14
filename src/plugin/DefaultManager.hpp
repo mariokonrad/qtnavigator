@@ -1,13 +1,13 @@
-#ifndef __PLUGINS__DEFAULTMANAGER__HPP__
-#define __PLUGINS__DEFAULTMANAGER__HPP__
+#ifndef __PLUGIN__DEFAULTMANAGER__HPP__
+#define __PLUGIN__DEFAULTMANAGER__HPP__
 
-#include <plugins/Manager.hpp>
+#include <plugin/Manager.hpp>
 #include <vector>
 #include <memory>
 
 class QPluginLoader;
 
-namespace plugins {
+namespace plugin {
 
 class DefaultManager : public Manager
 {

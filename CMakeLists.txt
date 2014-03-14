@@ -32,8 +32,11 @@ include(ExternalProject)
 include(ExternGmock)
 include(GitInformation)
 
-add_subdirectory(src)
+add_subdirectory(src/plugin_core)
 add_subdirectory(plugins/TestPlugin)
+add_subdirectory(src)
+
+add_dependencies(TestPlugin plugin_core)
 
 # --- tests
 

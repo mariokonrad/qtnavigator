@@ -1,5 +1,5 @@
 #include <MainWindow.hpp>
-#include <plugins/DefaultManager.hpp>
+#include <plugin/DefaultManager.hpp>
 #include <QApplication>
 #include <QCommandLineParser>
 #include <QDir>
@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
 	qDebug() << "2 ApplicationDirPath: " << data_root;
 	qDebug() << "2 Plugin Path       : " << plugin_path;
 
-	plugins::DefaultManager plugins;
+	plugin::DefaultManager plugins;
 	plugins.load(plugin_path);
 	plugins.unload();
 

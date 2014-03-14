@@ -1,35 +1,30 @@
+cmake_minimum_required(VERSION 2.8.11)
+message(STATUS "TARGET: qtnavigator (executable)")
+message(STATUS ". CMAKE_BUILD_TYPE       : ${CMAKE_BUILD_TYPE}")
+message(STATUS ". CMAKE_CXX_COMPILER     : ${CMAKE_CXX_COMPILER}")
+message(STATUS ". CMAKE_CXX_FLAGS        : ${CMAKE_CXX_FLAGS}")
+message(STATUS ". CMAKE_CXX_FLAGS_DEBUG  : ${CMAKE_CXX_FLAGS_DEBUG}")
+message(STATUS ". CMAKE_CXX_FLAGS_RELEASE: ${CMAKE_CXX_FLAGS_RELEASE}")
 
 add_executable(qtnavigator
 	main.cpp
-	MainWindow.hpp
 	MainWindow.cpp
-	MapWidget.hpp
 	MapWidget.cpp
-	plugins/Plugin.hpp
-	plugins/Manager.hpp
-	plugins/DefaultManager.hpp
-	plugins/DefaultManager.cpp
-	action/ExitApplication.hpp
+	plugin/DefaultManager.cpp
 	action/ExitApplication.cpp
-	action/Fullscreen.hpp
 	action/Fullscreen.cpp
-	action/About.hpp
 	action/About.cpp
-	action/AboutQt.hpp
 	action/AboutQt.cpp
-	chart/gshhs/Point.hpp
 	chart/gshhs/Point.cpp
-	chart/gshhs/Polygon.hpp
 	chart/gshhs/Polygon.cpp
-	chart/gshhs/Chart.hpp
 	chart/gshhs/Chart.cpp
-	chart/gshhs/Reader.hpp
 	chart/gshhs/Reader.cpp
 	)
 
 target_link_libraries(qtnavigator
 	Qt5::Widgets
 	Qt5::OpenGL
+	plugin_core
 	)
 
 install(

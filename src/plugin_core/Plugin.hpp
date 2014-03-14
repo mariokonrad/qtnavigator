@@ -1,10 +1,10 @@
-#ifndef __PLUGINS__PLUGIN__HPP__
-#define __PLUGINS__PLUGIN__HPP__
+#ifndef __PLUGIN__PLUGIN__HPP__
+#define __PLUGIN__PLUGIN__HPP__
 
 #include <QtCore/QString>
 #include <QtCore/QObject>
 
-namespace plugins {
+namespace plugin {
 
 class Plugin
 {
@@ -20,6 +20,6 @@ public:
 
 }
 
-Q_DECLARE_INTERFACE(plugins::Plugin, "qttmp.PluginInterface/0.1")
+Q_DECLARE_INTERFACE(plugin::Plugin, "qtnavigator.PluginInterface/1.0")
 
 #endif

@@ -1,9 +1,9 @@
-#ifndef __PLUGINS__MANAGER__HPP__
-#define __PLUGINS__MANAGER__HPP__
+#ifndef __PLUGIN__MANAGER__HPP__
+#define __PLUGIN__MANAGER__HPP__
 
 class QString;
 
-namespace plugins {
+namespace plugin {
 
 class Manager
 {

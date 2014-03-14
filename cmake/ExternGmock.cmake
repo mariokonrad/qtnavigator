@@ -4,19 +4,6 @@ set(gmock_INSTALL_DIR "${CMAKE_CURRENT_BINARY_DIR}/local")
 set(gmock_INCLUDE_DIR "${gmock_INSTALL_DIR}/include")
 set(gmock_LIBRARY_DIR "${gmock_INSTALL_DIR}/lib")
 
-if(UNIX)
-	set(GMOCK_C_FLAGS   "-Wno-missing-field-initializers")
-	set(GMOCK_CXX_FLAGS "-Wno-missing-field-initializers")
-endif()
-
-# gmock specific changes to the compiler flags
-set(CMAKE_C_FLAGS           "${CMAKE_C_FLAGS} ${GMOCK_C_FLAGS}")
-set(CMAKE_C_FLAGS_DEBUG     "${CMAKE_C_FLAGS_DEBUG} ${GMOCK_C_FLAGS}")
-set(CMAKE_C_FLAGS_RELEASE   "${CMAKE_C_FLAGS_RELEASE} ${GMOCK_C_FLAGS}")
-set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} ${GMOCK_CXX_FLAGS}")
-set(CMAKE_CXX_FLAGS_DEBUG   "${CMAKE_CXX_FLAGS_DEBUG} ${GMOCK_CXX_FLAGS}")
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${GMOCK_CXX_FLAGS}")
-
 ExternalProject_Add(extern_gmock
 	PREFIX "${CMAKE_CURRENT_BINARY_DIR}/gmock"
 	SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src_extern/gmock-1.7.0"
