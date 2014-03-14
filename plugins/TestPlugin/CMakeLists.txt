@@ -11,6 +11,6 @@ add_library(TestPlugin SHARED
 
 install(
 	TARGETS TestPlugin
-	DESTINATION lib
+	DESTINATION lib/plugins
 	)
 

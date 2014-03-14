@@ -33,7 +33,7 @@ include(ExternGmock)
 include(GitInformation)
 
 add_subdirectory(src)
-add_subdirectory(src/plugins/TestPlugin)
+add_subdirectory(plugins/TestPlugin)
 
 # --- tests
 
