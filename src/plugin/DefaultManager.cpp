@@ -20,7 +20,7 @@ void DefaultManager::load(const QString& plugin_path)
 	QDir plugindir = QDir(plugin_path);
 	for (auto filename : plugindir.entryList(QDir::Files | QDir::NoDotAndDotDot)) {
 		QString path = plugindir.absoluteFilePath(filename);
-		qDebug() << path;
+		qDebug() << __PRETTY_FUNCTION__ << ":" << path;
 		if (QLibrary::isLibrary(path)) {
 			load_plugin(path);
 		}
@@ -37,10 +37,11 @@ void DefaultManager::dump_metadata(const QPluginLoader& loader) const
 
 void DefaultManager::load_plugin(const QString& path)
 {
+	qDebug() << __PRETTY_FUNCTION__ << ":" << path;
 	auto loader = std::make_shared<QPluginLoader>(path);
 	dump_metadata(*loader);
 	if (!loader->load()) {
-		qDebug() << "ERROR: cannot load plugin";
+		qDebug() << "ERROR: cannot load plugin: " << path;
 		return;
 	}
 	Plugin* plugin = qobject_cast<Plugin*>(loader->instance());

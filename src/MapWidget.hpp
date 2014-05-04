@@ -9,7 +9,7 @@ class MapWidget : public QWidget
 	Q_OBJECT
 
 public:
-	MapWidget(QWidget* parent);
+	MapWidget(QWidget* parent, std::string data_root);
 
 protected:
 	virtual void paintEvent(QPaintEvent* event);

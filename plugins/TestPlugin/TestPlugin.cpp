@@ -7,6 +7,7 @@ namespace testplugin {
 TestPlugin::TestPlugin()
 {
 	qDebug() << __PRETTY_FUNCTION__;
+	::plugin::test_dump();
 }
 
 TestPlugin::~TestPlugin()

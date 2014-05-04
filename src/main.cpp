@@ -11,8 +11,8 @@ int main(int argc, char *argv[])
 	QApplication::setApplicationName("qtnavigator");
 	QApplication::setApplicationVersion("0.0.1"); // TODO: replace with version provided by cmake
 
-	QString data_root = QDir(app.applicationDirPath() + "/../data/").absolutePath();
-	QString plugin_path = QDir(app.applicationDirPath() + "/../lib/").absolutePath();
+	QString data_root = QDir(app.applicationDirPath() + "/../share/" + app.applicationName() + "/").absolutePath();
+	QString plugin_path = QDir(app.applicationDirPath() + "/../lib/plugins/").absolutePath();
 
 	qDebug() << "1 ApplicationDirPath: " << data_root;
 	qDebug() << "1 Plugin Path       : " << plugin_path;
@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
 	plugins.load(plugin_path);
 	plugins.unload();
 
-	MainWindow window;
+	MainWindow window(data_root.toStdString());
 	window.show();
 	return app.exec();
 }

@@ -11,7 +11,7 @@ class MainWindow : public QMainWindow
 	Q_OBJECT
 
 public:
-	MainWindow();
+	MainWindow(std::string data_root);
 	void set_data_root(QString);
 
 private slots:

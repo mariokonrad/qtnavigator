@@ -18,6 +18,8 @@ public:
 	virtual void cleanup() = 0;
 };
 
+void test_dump();
+
 }
 
 Q_DECLARE_INTERFACE(plugin::Plugin, "qtnavigator.PluginInterface/1.0")

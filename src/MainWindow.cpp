@@ -7,7 +7,7 @@
 #include <QMenuBar>
 #include <QMessageBox>
 
-MainWindow::MainWindow()
+MainWindow::MainWindow(std::string data_root)
 	: menu_file(nullptr)
 	, menu_view(nullptr)
 	, menu_help(nullptr)
@@ -23,7 +23,7 @@ MainWindow::MainWindow()
 	create_menus();
 	create_statusbar();
 
-	map_widget = new MapWidget(this);
+	map_widget = new MapWidget(this, data_root);
 
 	setCentralWidget(map_widget);
 }

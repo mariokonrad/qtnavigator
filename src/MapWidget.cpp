@@ -4,7 +4,7 @@
 #include <QPaintEvent>
 #include <QDebug>
 
-MapWidget::MapWidget(QWidget* parent)
+MapWidget::MapWidget(QWidget* parent, std::string data_root)
     : QWidget(parent)
 {
 	setMinimumSize(360, 180);
@@ -16,7 +16,7 @@ MapWidget::MapWidget(QWidget* parent)
 
 	// TEMP: this does not belong here, just temporary
 	chart::gshhs::Reader reader;
-	reader.read("data/gshhs/gshhs_c.b", chart);
+	reader.read(data_root + "/gshhs/gshhs_c.b", chart);
 	qDebug() << "num polys = " << chart.num_polygons();
 }
 

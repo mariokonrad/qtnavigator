@@ -7,7 +7,13 @@ message(STATUS ". CMAKE_CXX_FLAGS        : ${CMAKE_CXX_FLAGS}")
 message(STATUS ". CMAKE_CXX_FLAGS_DEBUG  : ${CMAKE_CXX_FLAGS_DEBUG}")
 message(STATUS ". CMAKE_CXX_FLAGS_RELEASE: ${CMAKE_CXX_FLAGS_RELEASE}")
 
+# RPATH handling
+#set(CMAKE_SKIP_BUILD_RPATH false)
+#set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib:$ORIGIN/../lib:$$ORIGIN/../lib:$ORIGIN/..:$$ORIGIN/..")
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH true)
+
 add_library(plugin_core SHARED
+	Plugin.cpp
 	Plugin.hpp
 	)
 
@@ -32,6 +38,4 @@ install(
 	)
 
 set(plugin_core_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}")
-
-set(CMAKE_INSTALL_RPATH_USE_LINK_PATH true)
 

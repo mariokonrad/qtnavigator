@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8.11)
 
-# TODO: support for Windows / Visual Studio 2012?
+# TODO: support for Windows / mingw
 
 project(qtnavigator)
 
@@ -27,7 +27,6 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 include_directories(${Qt5Core_INCLUDE_DIRS})
 
 include(CompilerOptions-gcc)
-
 include(ExternalProject)
 include(ExternGmock)
 include(GitInformation)

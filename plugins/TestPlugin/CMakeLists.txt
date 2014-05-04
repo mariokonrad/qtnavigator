@@ -7,6 +7,15 @@ message(STATUS ". CMAKE_CXX_FLAGS        : ${CMAKE_CXX_FLAGS}")
 message(STATUS ". CMAKE_CXX_FLAGS_DEBUG  : ${CMAKE_CXX_FLAGS_DEBUG}")
 message(STATUS ". CMAKE_CXX_FLAGS_RELEASE: ${CMAKE_CXX_FLAGS_RELEASE}")
 
+# set correct output directory also for builds
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/plugins")
+
+# RPATH handling
+set(CMAKE_SKIP_BUILD_RPATH false)
+#set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib:$ORIGIN/../lib:$$ORIGIN/../lib:$ORIGIN/..:$$ORIGIN/..")
+set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib:$ORIGIN/../lib:$$ORIGIN/../lib:$ORIGIN/..:$$ORIGIN/..")
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH true)
+
 add_definitions(-DQT_PLUGIN)
 
 include_directories(${plugin_core_INCLUDE_DIRS})
@@ -24,6 +33,4 @@ install(
 	TARGETS TestPlugin
 	DESTINATION lib/plugins
 	)
-
-set(CMAKE_INSTALL_RPATH_USE_LINK_PATH true)
 

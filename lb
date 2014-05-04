@@ -165,7 +165,7 @@ function exec_build()
 	check_build_dir
 	cd ${BUILD_DIR}
 
-	make -j ${CORES}
+	make VERBOSE=1 -j ${CORES}
 
 	cd ${CURRENT_DIR}
 }
