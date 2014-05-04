@@ -3,6 +3,8 @@
 script_dir=$(dirname `readlink -f $0`)
 script_name=$(basename `readlink -f $0`)
 
+MAKE_VERBOSE=""
+
 function usage()
 {
 	echo ""
@@ -26,6 +28,7 @@ function usage()
 	echo "    --release    : build type: release"
 	echo "    --tool x     : use toolchain x"
 	echo "    -i           : incremental build"
+	echo "    --verbose    : verbose build"
 	echo ""
 }
 
@@ -165,7 +168,7 @@ function exec_build()
 	check_build_dir
 	cd ${BUILD_DIR}
 
-	make VERBOSE=1 -j ${CORES}
+	make ${MAKE_VERBOSE} -j ${CORES}
 
 	cd ${CURRENT_DIR}
 }
@@ -233,6 +236,7 @@ args=$(getopt \
 	--longopt "help" \
 	--longopt "release" \
 	--longopt "tool:" \
+	--longopt "verbose" \
 	-- "$@")
 if [ $? != 0 ] ; then
 	echo "Parameter error. abort." >&2
@@ -267,6 +271,9 @@ while [ $# -ne 0 ] ; do
 		--tool)
 			TOOLCHAIN_FILE="Toolchain_$2.cmake"
 			shift
+			;;
+		--verbose)
+			MAKE_VERBOSE="VERBOSE=1"
 			;;
 		*)
 			if [ $# -gt 1 ] ; then
