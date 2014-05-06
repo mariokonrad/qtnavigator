@@ -2,6 +2,7 @@
 #define __CHART__GSHHS__CHART__HPP__
 
 #include <chart/gshhs/Polygon.hpp>
+#include <chart/Chart.hpp>
 
 namespace chart {
 namespace gshhs {
@@ -9,13 +10,15 @@ namespace gshhs {
 /// Holds data of GSHHS charts.
 ///
 /// Is initialized by the reader facility.
-class Chart
+class Chart : public ::chart::Chart
 {
 	friend class Reader;
 
 public:
 	Chart();
 	virtual ~Chart();
+
+	virtual std::shared_ptr<::chart::Renderer> get_renderer();
 
 	std::size_t num_polygons() const;
 	const std::vector<Polygon>& get_polygons() const; // TEMP

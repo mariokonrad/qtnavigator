@@ -1,7 +1,7 @@
 #ifndef __MAPWIDGET__HPP__
 #define __MAPWIDGET__HPP__
 
-#include <chart/gshhs/Chart.hpp> // TEMP
+#include <ChartModel.hpp>
 #include <QWidget>
 
 class MapWidget : public QWidget
@@ -9,7 +9,8 @@ class MapWidget : public QWidget
 	Q_OBJECT
 
 public:
-	MapWidget(QWidget* parent, std::string data_root);
+	MapWidget(QWidget* parent);
+	void set(std::shared_ptr<ChartModel>);
 
 protected:
 	virtual void paintEvent(QPaintEvent* event);
@@ -19,7 +20,7 @@ protected:
 	virtual void wheelEvent(QWheelEvent* event);
 
 private:
-	chart::gshhs::Chart chart; // TEMP
+	std::shared_ptr<ChartModel> chart_model;
 };
 
 #endif

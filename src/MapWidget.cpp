@@ -1,10 +1,10 @@
 #include "MapWidget.hpp"
-#include <chart/gshhs/Reader.hpp> // TEMP
+#include <chart/Renderer.hpp>
 #include <QPainter>
 #include <QPaintEvent>
 #include <QDebug>
 
-MapWidget::MapWidget(QWidget* parent, std::string data_root)
+MapWidget::MapWidget(QWidget* parent)
     : QWidget(parent)
 {
 	setMinimumSize(360, 180);
@@ -13,11 +13,11 @@ MapWidget::MapWidget(QWidget* parent, std::string data_root)
 	// track the position of the mouse cursor to display position for
 	// example.
 	setMouseTracking(true);
+}
 
-	// TEMP: this does not belong here, just temporary
-	chart::gshhs::Reader reader;
-	reader.read(data_root + "/gshhs/gshhs_c.b", chart);
-	qDebug() << "num polys = " << chart.num_polygons();
+void MapWidget::set(std::shared_ptr<ChartModel> model)
+{
+	chart_model = model;
 }
 
 void MapWidget::paintEvent(QPaintEvent* event)
@@ -28,25 +28,10 @@ void MapWidget::paintEvent(QPaintEvent* event)
 	painter.fillRect(event->rect(), QBrush(QColor(255, 255, 255)));
 	painter.setPen(QPen(Qt::black));
 
-	// TEMP: draw polygons from chart
-	for (const auto& polygon : chart.get_polygons()) {
-		if (polygon.level() != 1) {
-			// draw only land, for now
-			continue;
-		}
-		QPolygon poly(polygon.size());
-		int index = 0;
-		for (const auto& point : polygon.get_points()) {
-			// TODO: calc x/y coordinates, using projection.
-			//       for now, it is always scaled to the entire widget
-			int x = width() * (point.lon + 180.0) / 360.0;
-			int y = height() - height() * (point.lat + 90.0) / 180.0;
+	chart::Renderer::Context context{ width(), height() };
 
-			poly.setPoint(index, x, y);
-			++index;
-		}
-
-		painter.drawPolygon(poly);
+	for (const auto renderer : chart_model->get_renderers()) {
+		renderer->render(painter, context);
 	}
 
 	painter.end();

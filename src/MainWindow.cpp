@@ -4,8 +4,11 @@
 #include <action/Fullscreen.hpp>
 #include <action/About.hpp>
 #include <action/AboutQt.hpp>
+#include <chart/gshhs/Reader.hpp> // TEMP
+#include <chart/gshhs/Chart.hpp> // TEMP
 #include <QMenuBar>
 #include <QMessageBox>
+#include <QDebug>
 
 MainWindow::MainWindow(std::string data_root)
 	: menu_file(nullptr)
@@ -23,9 +26,19 @@ MainWindow::MainWindow(std::string data_root)
 	create_menus();
 	create_statusbar();
 
-	map_widget = new MapWidget(this, data_root);
+	chart_model = std::make_shared<ChartModel>();
+
+	map_widget = new MapWidget(this);
+	map_widget->set(chart_model);
 
 	setCentralWidget(map_widget);
+
+	// TEMP: this does not belong here, just temporary
+	std::shared_ptr<chart::gshhs::Chart> chart = std::make_shared<chart::gshhs::Chart>();
+	chart::gshhs::Reader reader;
+	reader.read(data_root + "/gshhs/gshhs_c.b", *chart);
+	qDebug() << "num polys = " << chart->num_polygons();
+	chart_model->add(chart);
 }
 
 void MainWindow::create_statusbar()

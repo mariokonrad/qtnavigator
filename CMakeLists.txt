@@ -25,6 +25,7 @@ find_package(Qt5OpenGL)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 include_directories(${Qt5Core_INCLUDE_DIRS})
+include_directories(${Qt5Gui_INCLUDE_DIRS})
 
 include(CompilerOptions-gcc)
 include(ExternalProject)

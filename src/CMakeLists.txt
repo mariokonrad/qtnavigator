@@ -15,15 +15,19 @@ add_executable(qtnavigator
 	main.cpp
 	MainWindow.cpp
 	MapWidget.cpp
+	ChartModel.cpp
 	plugin/DefaultManager.cpp
 	action/ExitApplication.cpp
 	action/Fullscreen.cpp
 	action/About.cpp
 	action/AboutQt.cpp
+	chart/Chart.cpp
+	chart/Renderer.cpp
 	chart/gshhs/Point.cpp
 	chart/gshhs/Polygon.cpp
 	chart/gshhs/Chart.cpp
 	chart/gshhs/Reader.cpp
+	chart/gshhs/Renderer.cpp
 	)
 
 target_link_libraries(qtnavigator

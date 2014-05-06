@@ -22,13 +22,17 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 add_executable(testrunner
 	${TEST_SRC}
+	${CMAKE_SOURCE_DIR}/src/chart/Chart.cpp
+	${CMAKE_SOURCE_DIR}/src/chart/Renderer.cpp
 	${CMAKE_SOURCE_DIR}/src/chart/gshhs/Point.cpp
 	${CMAKE_SOURCE_DIR}/src/chart/gshhs/Polygon.cpp
 	${CMAKE_SOURCE_DIR}/src/chart/gshhs/Chart.cpp
 	${CMAKE_SOURCE_DIR}/src/chart/gshhs/Reader.cpp
+	${CMAKE_SOURCE_DIR}/src/chart/gshhs/Renderer.cpp
 	)
 
 target_link_libraries(testrunner
+	Qt5::Widgets
 	gmock
 	pthread
 	)

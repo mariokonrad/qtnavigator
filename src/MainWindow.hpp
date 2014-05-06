@@ -1,6 +1,7 @@
 #ifndef __MAINWINDOW__H__
 #define __MAINWINDOW__H__
 
+#include <ChartModel.hpp>
 #include <QMainWindow>
 
 class MapWidget;
@@ -31,6 +32,8 @@ private:
 	QAction* action_about;
 	QAction* action_about_qt;
 	MapWidget* map_widget;
+
+	std::shared_ptr<ChartModel> chart_model;
 };
 
 #endif
