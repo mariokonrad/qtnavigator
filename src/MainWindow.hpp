@@ -12,8 +12,7 @@ class MainWindow : public QMainWindow
 	Q_OBJECT
 
 public:
-	MainWindow(std::string data_root);
-	void set_data_root(QString);
+	MainWindow(std::shared_ptr<ChartModel>);
 
 private slots:
 	void on_about();

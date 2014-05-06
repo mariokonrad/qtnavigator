@@ -1,4 +1,6 @@
 #include <MainWindow.hpp>
+#include <chart/gshhs/Reader.hpp> // TEMP
+#include <chart/gshhs/Chart.hpp> // TEMP
 #include <plugin/DefaultManager.hpp>
 #include <QApplication>
 #include <QCommandLineParser>
@@ -40,7 +42,16 @@ int main(int argc, char *argv[])
 	plugins.load(plugin_path);
 	plugins.unload();
 
-	MainWindow window(data_root.toStdString());
+	auto chart_model = std::make_shared<ChartModel>();
+
+	// TEMP: this does not belong here, just temporary
+	std::shared_ptr<chart::gshhs::Chart> chart = std::make_shared<chart::gshhs::Chart>();
+	chart::gshhs::Reader reader;
+	reader.read(data_root.toStdString() + "/gshhs/gshhs_c.b", *chart);
+	qDebug() << "num polys = " << chart->num_polygons();
+	chart_model->add(chart);
+
+	MainWindow window(chart_model);
 	window.show();
 	return app.exec();
 }
