@@ -15,11 +15,6 @@ class Chart
 {
 public:
 	virtual ~Chart();
-
-	// TODO: the renderer should be provided/instantiated by the chart factory
-	//       not the chart itself, because it distributes the dependencies in
-	//       an undesireable way. 
-	virtual std::shared_ptr<::chart::Renderer> get_renderer() = 0;
 };
 
 }

@@ -21,10 +21,13 @@ add_executable(qtnavigator
 	action/Fullscreen.cpp
 	action/About.cpp
 	action/AboutQt.cpp
+	chart/Factory.cpp
+	chart/FactoryRegistry.cpp
 	chart/Chart.cpp
 	chart/Renderer.cpp
 	chart/gshhs/Point.cpp
 	chart/gshhs/Polygon.cpp
+	chart/gshhs/Factory.cpp
 	chart/gshhs/Chart.cpp
 	chart/gshhs/Reader.cpp
 	chart/gshhs/Renderer.cpp

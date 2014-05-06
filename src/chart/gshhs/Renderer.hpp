@@ -15,7 +15,7 @@ public:
 	Renderer(const Chart&);
 	virtual ~Renderer();
 
-	virtual void render(QPainter&, Context) const;
+	virtual void render(QPainter&, Context) const override;
 
 private:
 	const Chart& chart;

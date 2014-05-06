@@ -1,13 +1,8 @@
 #ifndef __CHART_MODEL__HPP__
 #define __CHART_MODEL__HPP__
 
-#include <memory>
+#include <chart/ModelEntry.hpp>
 #include <vector>
-
-namespace chart {
-class Chart;
-class Renderer;
-}
 
 class ChartModel
 {
@@ -17,10 +12,10 @@ public:
 	virtual std::vector<std::shared_ptr<chart::Chart>> get_charts() const;
 	virtual std::vector<std::shared_ptr<chart::Renderer>> get_renderers() const;
 
-	virtual void add(std::shared_ptr<chart::Chart>);
+	virtual void add(chart::ModelEntry);
 
 private:
-	std::vector<std::shared_ptr<chart::Chart>> charts;
+	std::vector<::chart::ModelEntry> charts;
 };
 
 #endif

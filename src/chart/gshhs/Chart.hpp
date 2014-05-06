@@ -18,8 +18,6 @@ public:
 	Chart();
 	virtual ~Chart();
 
-	virtual std::shared_ptr<::chart::Renderer> get_renderer();
-
 	std::size_t num_polygons() const;
 	const std::vector<Polygon>& get_polygons() const; // TEMP
 
