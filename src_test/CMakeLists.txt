@@ -22,6 +22,8 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 add_executable(testrunner
 	${TEST_SRC}
+	${CMAKE_SOURCE_DIR}/src/utils/range.cpp
+	${CMAKE_SOURCE_DIR}/src/geo/Position.cpp
 	${CMAKE_SOURCE_DIR}/src/chart/Chart.cpp
 	${CMAKE_SOURCE_DIR}/src/chart/Renderer.cpp
 	${CMAKE_SOURCE_DIR}/src/chart/gshhs/Point.cpp
