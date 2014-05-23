@@ -13,7 +13,8 @@ class Renderer
 public:
 	/// Context to render charts. This structure may contain redundant information,
 	/// but this is for convenience.
-	struct Context {
+	struct Context
+	{
 		int width; // width of the drawing context
 		int height; // height of the drawing context
 
