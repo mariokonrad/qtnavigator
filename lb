@@ -304,7 +304,7 @@ BUILD_TYPE=${BUILD_TYPE:-Debug}
 TOOLCHAIN_FILE=${TOOLCHAIN_FILE:-Toolchain_gcc.cmake}
 CORES=${CORES:-${cores}}
 CURRENT_DIR=`pwd`
-export CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH:-$HOME/local/Qt5.2.1/5.2.1/gcc_64}
+export CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH:-$HOME/local/Qt5.3.1/5.3.1/gcc_64}
 
 # execute actions
 for action_index in ${!opt_actions[*]} ; do

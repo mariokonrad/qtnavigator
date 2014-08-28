@@ -18,8 +18,8 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
 find_package(Qt5Core REQUIRED)
+find_package(Qt5OpenGL REQUIRED)
 find_package(Qt5Widgets REQUIRED)
-find_package(Qt5OpenGL)
 
 # TODO: installation of Qt libs
 
