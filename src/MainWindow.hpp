@@ -6,6 +6,7 @@
 
 class MapWidget;
 class QMenu;
+class QToolBar;
 
 class MainWindow : public QMainWindow
 {
@@ -22,10 +23,12 @@ private:
 	void create_actions();
 	void create_menus();
 	void create_statusbar();
+	void create_toolbar();
 
 	QMenu* menu_file;
 	QMenu* menu_view;
 	QMenu* menu_help;
+	QToolBar* toolbar;
 	QAction* action_exit;
 	QAction* action_toggle_fullscreen;
 	QAction* action_about;

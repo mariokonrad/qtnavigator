@@ -5,6 +5,7 @@
 #include <action/About.hpp>
 #include <action/AboutQt.hpp>
 #include <QMenuBar>
+#include <QToolBar>
 #include <QMessageBox>
 #include <QDebug>
 
@@ -12,6 +13,7 @@ MainWindow::MainWindow(std::shared_ptr<ChartModel> chart_model)
 	: menu_file(nullptr)
 	, menu_view(nullptr)
 	, menu_help(nullptr)
+	, toolbar(nullptr)
 	, action_exit(nullptr)
 	, action_toggle_fullscreen(nullptr)
 	, action_about(nullptr)
@@ -24,6 +26,7 @@ MainWindow::MainWindow(std::shared_ptr<ChartModel> chart_model)
 	create_actions();
 	create_menus();
 	create_statusbar();
+	create_toolbar();
 
 	map_widget = new MapWidget(this);
 	map_widget->set(chart_model);
@@ -34,6 +37,14 @@ MainWindow::MainWindow(std::shared_ptr<ChartModel> chart_model)
 void MainWindow::create_statusbar()
 {
 	statusBar();
+}
+
+void MainWindow::create_toolbar()
+{
+	toolbar = addToolBar(tr("Toolbar"));
+
+	// TODO: populate toolbar
+	toolbar->addAction(action_toggle_fullscreen);
 }
 
 void MainWindow::create_menus()
