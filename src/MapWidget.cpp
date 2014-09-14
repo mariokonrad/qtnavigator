@@ -81,3 +81,13 @@ void MapWidget::wheelEvent(QWheelEvent*)
 	qDebug() << __PRETTY_FUNCTION__;
 }
 
+void MapWidget::zoom_in()
+{
+	qDebug() << __PRETTY_FUNCTION__;
+}
+
+void MapWidget::zoom_out()
+{
+	qDebug() << __PRETTY_FUNCTION__;
+}
+

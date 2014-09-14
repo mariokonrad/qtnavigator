@@ -21,6 +21,8 @@ add_executable(qtnavigator
 	action/Fullscreen.cpp
 	action/About.cpp
 	action/AboutQt.cpp
+	action/ZoomIn.cpp
+	action/ZoomOut.cpp
 	utils/range.cpp
 	geo/Position.cpp
 	chart/Factory.cpp

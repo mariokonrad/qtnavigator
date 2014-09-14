@@ -33,6 +33,8 @@ private:
 	QAction* action_toggle_fullscreen;
 	QAction* action_about;
 	QAction* action_about_qt;
+	QAction* action_zoom_in;
+	QAction* action_zoom_out;
 	MapWidget* map_widget;
 
 	std::shared_ptr<ChartModel> chart_model;

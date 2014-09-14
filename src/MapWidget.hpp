@@ -12,6 +12,10 @@ public:
 	MapWidget(QWidget* parent);
 	void set(std::shared_ptr<ChartModel>);
 
+public slots:
+	void zoom_in();
+	void zoom_out();
+
 protected:
 	virtual void paintEvent(QPaintEvent* event);
 	virtual void mouseMoveEvent(QMouseEvent* event);
