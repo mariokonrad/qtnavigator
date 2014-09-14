@@ -20,10 +20,10 @@ public:
 
 		geo::Position center; // center of view
 
-		double lat_top; // latitude of the top border of the region to render.
-		double lat_bottom; // latitude of the bottom border of the region to render.
-		double lon_left; // longitude of the left border of the region to render.
-		double lon_right; // longitude of the right border of the region to render.
+		geo::Position::Latitude lat_top; // latitude of the top border of the region to render.
+		geo::Position::Latitude  lat_bottom; // latitude of the bottom border of the region to render.
+		geo::Position::Longitude lon_left; // longitude of the left border of the region to render.
+		geo::Position::Longitude lon_right; // longitude of the right border of the region to render.
 
 		int scale; // scale to render the content
 	};

@@ -6,6 +6,7 @@
 
 MapWidget::MapWidget(QWidget* parent)
     : QWidget(parent)
+	, panning(false)
 {
 	setMinimumSize(360, 180);
 
@@ -28,7 +29,14 @@ void MapWidget::paintEvent(QPaintEvent* event)
 	painter.fillRect(event->rect(), QBrush(QColor(255, 255, 255)));
 	painter.setPen(QPen(Qt::black));
 
-	chart::Renderer::Context context{ width(), height() };
+	// TODO: temporary data about view (position and zoom)
+	chart::Renderer::Context context{
+		width(), height(),
+		geo::Position{ 0.0, 0.0 },
+		+90.0, -90.0,
+		-180.0, +180.0,
+		1
+	};
 
 	for (const auto renderer : chart_model->get_renderers()) {
 		renderer->render(painter, context);
@@ -40,16 +48,32 @@ void MapWidget::paintEvent(QPaintEvent* event)
 void MapWidget::mouseMoveEvent(QMouseEvent*)
 {
 	qDebug() << __PRETTY_FUNCTION__;
+
+	if (panning) {
+		// TODO: pan chart
+	}
+
+	// TODO: update curos position on status bar
 }
 
-void MapWidget::mousePressEvent(QMouseEvent*)
+void MapWidget::mousePressEvent(QMouseEvent* event)
 {
 	qDebug() << __PRETTY_FUNCTION__;
+
+	// TODO: there will be other actions as well, not just panning
+
+	if (event && event->button() == Qt::LeftButton) {
+		panning = true;
+	}
 }
 
-void MapWidget::mouseReleaseEvent(QMouseEvent*)
+void MapWidget::mouseReleaseEvent(QMouseEvent* event)
 {
 	qDebug() << __PRETTY_FUNCTION__;
+
+	if (event && event->button() == Qt::LeftButton) {
+		panning = false;
+	}
 }
 
 void MapWidget::wheelEvent(QWheelEvent*)

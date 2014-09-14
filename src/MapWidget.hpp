@@ -21,6 +21,7 @@ protected:
 
 private:
 	std::shared_ptr<ChartModel> chart_model;
+	bool panning;
 };
 
 #endif
