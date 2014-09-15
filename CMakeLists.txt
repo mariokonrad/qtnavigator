@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 2.8.11)
 
-# TODO: support for Windows / mingw
-
 project(qtnavigator)
 
 set(PACKAGE_NAME "qtnavigator")
