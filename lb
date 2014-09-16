@@ -20,6 +20,7 @@ function usage()
 	echo "    install"
 	echo "    package"
 	echo "    index"
+	echo "    cppcheck"
 	echo ""
 	echo "Options:"
 	echo "    --help       : show this help"
@@ -338,6 +339,9 @@ for action_index in ${!opt_actions[*]} ; do
 			;;
 		index)
 			exec_index
+			;;
+		cppcheck)
+			exec_cppcheck
 			;;
 		*)
 			echo "ERROR: unknown command: ${action}"
