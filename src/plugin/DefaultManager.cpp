@@ -60,10 +60,43 @@ void DefaultManager::unload()
 {
 	for (auto loader : plugins) {
 		Plugin* plugin = qobject_cast<Plugin*>(loader->instance());
+
+		plugin->terminate();
+		unregister_renderers(plugin);
+
 		plugin->cleanup();
 		loader->unload();
 		loader.reset();
 	}
+}
+
+void DefaultManager::unregister_renderers(const Plugin* plugin)
+{
+	using namespace std;
+
+	renderers.erase(remove_if(begin(renderers), end(renderers),
+							  [=](const pair<const Plugin*, const Renderer*>& item) {
+						return item.first == plugin;
+					}),
+					renderers.end());
+}
+
+void DefaultManager::register_renderer(const Plugin* plugin, const Renderer* renderer)
+{
+	renderers.push_back(std::make_pair(plugin, renderer));
+}
+
+std::vector<const Renderer*> DefaultManager::get_renderers() const
+{
+	using namespace std;
+
+	vector<const Renderer*> v;
+	v.reserve(renderers.size());
+	for (auto const& renderer : renderers) {
+		v.push_back(renderer.second);
+	}
+
+	return v;
 }
 
 }

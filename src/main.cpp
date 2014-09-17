@@ -1,5 +1,6 @@
 #include <MainWindow.hpp>
 #include <ChartModel.hpp>
+#include <Registry.hpp>
 #include <chart/gshhs/Factory.hpp>
 #include <chart/FactoryRegistry.hpp>
 #include <plugin/DefaultManager.hpp>
@@ -39,9 +40,9 @@ int main(int argc, char *argv[])
 	qDebug() << "2 ApplicationDirPath: " << data_root;
 	qDebug() << "2 Plugin Path       : " << plugin_path;
 
-	plugin::DefaultManager plugins;
-	plugins.load(plugin_path);
-	plugins.unload();
+	auto plugins = std::make_shared<plugin::DefaultManager>();
+	Registry::get().inject(plugins);
+	plugins->load(plugin_path);
 
 	auto chart_model = std::make_shared<ChartModel>();
 
@@ -52,5 +53,9 @@ int main(int argc, char *argv[])
 
 	MainWindow window(chart_model);
 	window.show();
-	return app.exec();
+	int rc = app.exec();
+
+	plugins->unload();
+
+	return rc;
 }

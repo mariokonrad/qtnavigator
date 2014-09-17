@@ -1,5 +1,8 @@
 #include "MapWidget.hpp"
 #include <chart/Renderer.hpp>
+#include <plugin_core/Manager.hpp>
+#include <plugin_core/Renderer.hpp>
+#include <Registry.hpp>
 #include <QPainter>
 #include <QPaintEvent>
 #include <QDebug>
@@ -42,6 +45,10 @@ void MapWidget::paintEvent(QPaintEvent* event)
 		renderer->render(painter, context);
 	}
 
+	for (const auto renderer : Registry::get().plugins()->get_renderers()) {
+		renderer->render(painter);
+	}
+
 	painter.end();
 }
 
@@ -53,7 +60,7 @@ void MapWidget::mouseMoveEvent(QMouseEvent*)
 		// TODO: pan chart
 	}
 
-	// TODO: update curos position on status bar
+	// TODO: update cursor position on status bar
 }
 
 void MapWidget::mousePressEvent(QMouseEvent* event)

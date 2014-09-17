@@ -23,9 +23,15 @@ QString TestPlugin::name() const
 void TestPlugin::setup()
 {
 	qDebug() << __PRETTY_FUNCTION__;
+	register_renderer(this);
 }
 
 void TestPlugin::cleanup()
+{
+	qDebug() << __PRETTY_FUNCTION__;
+}
+
+void TestPlugin::render(QPainter&) const
 {
 	qDebug() << __PRETTY_FUNCTION__;
 }

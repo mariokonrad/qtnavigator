@@ -6,16 +6,20 @@
 
 namespace plugin {
 
+class Renderer;
+
 class Plugin
 {
 public:
-	virtual ~Plugin()
-	{
-	}
+	virtual ~Plugin();
 
 	virtual QString name() const = 0;
 	virtual void setup() = 0;
 	virtual void cleanup() = 0;
+
+	virtual void terminate();
+
+	void register_renderer(const Renderer*);
 };
 
 void test_dump();

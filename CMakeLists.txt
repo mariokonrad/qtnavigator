@@ -2,6 +2,10 @@ cmake_minimum_required(VERSION 2.8.11)
 
 project(qtnavigator)
 
+set(VERSION_MAJOR "0")
+set(VERSION_MINOR "0")
+set(VERSION_PATCH "0")
+
 set(PACKAGE_NAME "qtnavigator")
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
@@ -61,10 +65,6 @@ install(FILES ${GSHHS_RESOURCES}
 	)
 
 # --- packaging
-
-set(VERSION_MAJOR "0")
-set(VERSION_MINOR "0")
-set(VERSION_PATCH "0")
 
 set(CPACK_PACKAGE_VERSION_MAJOR ${VERSION_MAJOR})
 set(CPACK_PACKAGE_VERSION_MINOR ${VERSION_MINOR})

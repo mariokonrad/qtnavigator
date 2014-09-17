@@ -13,6 +13,7 @@ set(CMAKE_INSTALL_RPATH_USE_LINK_PATH true)
 add_library(plugin_core SHARED
 	Plugin.cpp
 	Plugin.hpp
+	Renderer.hpp
 	)
 
 set_target_properties(plugin_core
@@ -31,8 +32,12 @@ install(
 	)
 
 install(
-	FILES Plugin.hpp
-	DESTINATION include/qtnavigator/plugin
+	FILES
+		Manager.hpp
+		Plugin.hpp
+		Renderer.hpp
+	DESTINATION
+		include/qtnavigator/plugin
 	)
 
 set(plugin_core_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}")

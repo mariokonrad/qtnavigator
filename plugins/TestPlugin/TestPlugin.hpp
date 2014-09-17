@@ -2,11 +2,15 @@
 #define __PLUGINS__TESTPLUGIN__TESTPLUGIN__HPP__
 
 #include <plugin_core/Plugin.hpp>
+#include <plugin_core/Renderer.hpp>
 
 namespace plugins {
 namespace testplugin {
 
-class TestPlugin : public QObject, virtual public plugin::Plugin
+class TestPlugin
+	: public QObject
+	, virtual public ::plugin::Plugin
+	, virtual public ::plugin::Renderer
 {
 	Q_OBJECT
 	Q_INTERFACES(plugin::Plugin)
@@ -16,9 +20,13 @@ public:
 	TestPlugin();
 	virtual ~TestPlugin();
 
-	virtual QString name() const;
-	virtual void setup();
-	virtual void cleanup();
+public: // Plugin
+	virtual QString name() const override;
+	virtual void setup() override;
+	virtual void cleanup() override;
+
+public: // Renderer
+	virtual void render(QPainter&) const override;
 };
 
 }}

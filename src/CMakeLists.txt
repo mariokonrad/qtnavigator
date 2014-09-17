@@ -14,6 +14,7 @@ add_executable(qtnavigator
 	MainWindow.cpp
 	MapWidget.cpp
 	ChartModel.cpp
+	Registry.cpp
 	plugin/DefaultManager.cpp
 	action/ExitApplication.cpp
 	action/Fullscreen.cpp
