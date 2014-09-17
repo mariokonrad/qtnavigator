@@ -4,6 +4,7 @@
 #include <chart/gshhs/Factory.hpp>
 #include <chart/FactoryRegistry.hpp>
 #include <plugin/DefaultManager.hpp>
+#include <version.h>
 #include <QApplication>
 #include <QCommandLineParser>
 #include <QDir>
@@ -13,9 +14,11 @@ int main(int argc, char *argv[])
 {
 	QApplication app(argc, argv);
 	QApplication::setApplicationName("qtnavigator");
-	QApplication::setApplicationVersion("0.0.1"); // TODO: replace with version provided by cmake
+	QApplication::setApplicationVersion(
+		QString("%1.%2.%3").arg(VERSION_MAJOR).arg(VERSION_MINOR).arg(VERSION_PATCH));
 
-	QString data_root = QDir(app.applicationDirPath() + "/../share/" + app.applicationName() + "/").absolutePath();
+	QString data_root = QDir(app.applicationDirPath() + "/../share/" + app.applicationName() + "/")
+							.absolutePath();
 	QString plugin_path = QDir(app.applicationDirPath() + "/../lib/plugins/").absolutePath();
 
 	qDebug() << "1 ApplicationDirPath: " << data_root;

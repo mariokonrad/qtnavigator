@@ -34,6 +34,9 @@ include(ExternalProject)
 include(ExternGmock)
 include(GitInformation)
 
+configure_file(version.h.in "${CMAKE_CURRENT_BINARY_DIR}/src/version.h")
+include_directories("${CMAKE_CURRENT_BINARY_DIR}/src")
+
 add_subdirectory(src/plugin_core)
 add_subdirectory(plugins/TestPlugin)
 add_subdirectory(src)

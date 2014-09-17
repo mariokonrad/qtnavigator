@@ -9,6 +9,7 @@
 #include <QMenuBar>
 #include <QToolBar>
 #include <QMessageBox>
+#include <QCoreApplication>
 
 MainWindow::MainWindow(std::shared_ptr<ChartModel> chart_model)
 	: menu_file(nullptr)
@@ -92,7 +93,12 @@ void MainWindow::create_actions()
 
 void MainWindow::on_about()
 {
-	QMessageBox::about(this, "qtnavigator", "qtnavigator : navigation software");
+	QCoreApplication* app = QCoreApplication::instance();
+	QString version;
+	if (app) {
+		version = QString("\n\nVersion: ") + app->applicationVersion();
+	}
+	QMessageBox::about(this, "qtnavigator", "qtnavigator : navigation software" + version);
 }
 
 void MainWindow::on_about_qt()
