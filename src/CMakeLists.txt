@@ -42,6 +42,8 @@ target_link_libraries(qtnavigator
 	plugin_core
 	)
 
+qt5_use_modules(qtnavigator Core Widgets OpenGL)
+
 install(
 	TARGETS qtnavigator
 	RUNTIME DESTINATION bin
