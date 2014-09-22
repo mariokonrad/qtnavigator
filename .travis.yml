@@ -6,13 +6,17 @@ before_install:
   - sudo add-apt-repository --yes ppa:kalakris/cmake
   - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
   - sudo apt-get update -qq
+
+install:
   - sudo apt-get install -qq cmake
   - sudo apt-get install -qq g++-4.8
-  - export CXX="g++-4.8" CC="gcc-4.8"
   - sudo apt-get install qtbase5-dev qtdeclarative5-dev libqt5webkit5-dev libsqlite3-dev
   - sudo apt-get install qt5-default qttools5-dev-tools
 
+before_script:
+  - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
+
 script: 
-  - sh -c 'CC="gcc-4.8" CXX="g++-4.8" ./lb prepare'
+  - sh -c './lb prepare'
   - sh -c './lb build'
   - sh -c './lb test'
