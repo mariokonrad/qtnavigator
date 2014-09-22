@@ -1,9 +1,6 @@
 language: cpp
 compiler: gcc
 
-env:
-  - CXX=g++-4.8 CC=gcc-4.8
-
 before_install:
   - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
   - sudo add-apt-repository --yes ppa:kalakris/cmake
@@ -17,6 +14,7 @@ install:
   - sudo apt-get install qt5-default qttools5-dev-tools
 
 script: 
+  - export CXX="g++-4.8" CC="gcc-4.8"
   - sh -c './lb prepare'
   - sh -c './lb build'
   - sh -c './lb test'
