@@ -13,6 +13,6 @@ before_install:
   - sudo apt-get install qt5-default qttools5-dev-tools
 
 script: 
-  - sh -c './lb prepare'
+  - sh -c 'CC="gcc-4.8" CXX="g++-4.8" ./lb prepare'
   - sh -c './lb build'
   - sh -c './lb test'
