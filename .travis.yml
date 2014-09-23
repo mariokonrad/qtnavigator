@@ -11,6 +11,7 @@ install:
   - sudo apt-get install -qq g++-4.8
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 90
   - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 90
+  - sudo apt-get install -qq libegl1-mesa-dev libegl1-mesa
   - "mkdir qt5"
   - "wget -q -O qt5.zip http://ftp.osuosl.org/pub/musescore/utils/qt531.zip"
   - "unzip -qq qt5.zip -d qt5"
