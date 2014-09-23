@@ -25,6 +25,8 @@ target_link_libraries(plugin_core
 	Qt5::Core
 	)
 
+qt5_use_modules(plugin_core Core)
+
 install(
 	TARGETS plugin_core
 	LIBRARY DESTINATION lib
