@@ -1,6 +1,8 @@
 qtnavigator
 ===========
 
+[![Build Status](https://travis-ci.org/mariokonrad/qtnavigator.svg)](https://travis-ci.org/mariokonrad/qtnavigator)
+
 Introduction
 ------------
 
