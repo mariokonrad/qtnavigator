@@ -1,9 +1,15 @@
-#ifndef __REGISTRY__HPP__
-#define __REGISTRY__HPP__
+#ifndef __GLOBAL__REGISTRY__HPP__
+#define __GLOBAL__REGISTRY__HPP__
 
 #include <memory>
 
-namespace plugin { class Manager; }
+namespace plugin
+{
+class Manager;
+}
+
+namespace global
+{
 
 class Registry
 {
@@ -21,5 +27,7 @@ private:
 
 	std::shared_ptr<::plugin::Manager> plugin_manager;
 };
+
+}
 
 #endif

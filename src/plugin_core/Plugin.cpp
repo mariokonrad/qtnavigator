@@ -1,7 +1,7 @@
 #include "Plugin.hpp"
 #include <Renderer.hpp>
 #include <Manager.hpp>
-#include <Registry.hpp>
+#include <global/Registry.hpp>
 #include <QDebug>
 
 namespace plugin {
@@ -11,7 +11,7 @@ Plugin::~Plugin() {}
 void Plugin::register_renderer(const Renderer* renderer)
 {
 	qDebug() << __PRETTY_FUNCTION__;
-	Registry::get().plugins()->register_renderer(this, renderer);
+	global::Registry::get().plugins()->register_renderer(this, renderer);
 }
 
 /// This method is to notify the plugin to terminate. If the plugin

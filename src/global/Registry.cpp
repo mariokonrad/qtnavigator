@@ -1,5 +1,8 @@
 #include "Registry.hpp"
 
+namespace global
+{
+
 Registry* Registry::instance = nullptr;
 
 Registry::Registry() {}
@@ -22,5 +25,7 @@ void Registry::inject(std::shared_ptr<::plugin::Manager> manager)
 std::shared_ptr<::plugin::Manager> Registry::plugins() const
 {
 	return plugin_manager;
+}
+
 }
 

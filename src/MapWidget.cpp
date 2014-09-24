@@ -2,7 +2,7 @@
 #include <chart/Renderer.hpp>
 #include <plugin_core/Manager.hpp>
 #include <plugin_core/Renderer.hpp>
-#include <Registry.hpp>
+#include <global/Registry.hpp>
 #include <QPainter>
 #include <QPaintEvent>
 #include <QDebug>
@@ -45,7 +45,7 @@ void MapWidget::paintEvent(QPaintEvent* event)
 		renderer->render(painter, context);
 	}
 
-	for (const auto renderer : Registry::get().plugins()->get_renderers()) {
+	for (const auto renderer : global::Registry::get().plugins()->get_renderers()) {
 		renderer->render(painter);
 	}
 
