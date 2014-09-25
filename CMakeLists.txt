@@ -79,6 +79,8 @@ set(CPACK_PACKAGE_VENDOR "Mario Konrad")
 set(CPACK_PACKAGE_CONTACT "Mario Konrad <mario.konrad@gmx.net>")
 set(CPACK_PACAKGE_DESCRIPTION "${PACKAGE_NAME}")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Nautical navigation software")
+set(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_SOURCE_DIR}/README.md")
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE")
 set(CPACK_MONOLITHIC_INSTALL 1)
 set(CPACK_PACKAGE_EXECUTABLES "${PACKAGE_NAME}" "${PACKAGE_NAME}")
 set(CPACK_STRIP_FILES true)
@@ -109,3 +111,4 @@ endif()
 # --- general packaging
 
 include(CPack)
+include(InstallRequiredSystemLibraries)
